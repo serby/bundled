@@ -1,7 +1,7 @@
 {
 	"author": "Paul Serby <paul@serby.net>",
 	"name": "bundled",
-	"description": "A standalone bundle manage which adds an extendable plugin system to your application",
+	"description": "A standalone bundle manage which can add an extendable plugin system to any application",
 	"version": "0.0.1",
 	"repository": {
 		"type": "git",
