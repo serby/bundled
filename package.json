@@ -1,0 +1,22 @@
+{
+	"author": "Paul Serby <paul@serby.net>",
+	"name": "bundled",
+	"description": "A standalone bundle manage which adds an extendable plugin system to your application",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:serby/bundled"
+	},
+	"main": "lib/bundled.js",
+	"scripts": {
+		"test": "mocha -r should -R List "
+	},
+	"engines": {
+		"node": ">0.4.0"
+	},
+	"dependencies": {
+		"mocha": "*",
+		"should": "*"
+	},
+	"devDependencies": {}
+}
