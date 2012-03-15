@@ -34,6 +34,8 @@ Bundled allows you to add a standalone extension system any application.
 
 * If you need to initialize code for your bundle you can add an initialize function or even an array of functions.
 
+Single initialize function example:
+
       modules.exports = {
         name: 'Hoozit',
         version: '0.0.1',
@@ -44,6 +46,8 @@ Bundled allows you to add a standalone extension system any application.
           done();
         }
       };
+
+Multiple initialize function example:
 
       modules.exports = {
         name: 'Hoozit',
