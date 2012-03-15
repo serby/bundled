@@ -34,31 +34,31 @@ Bundled allows you to add a standalone extension system any application.
 
 * If you need to initialize code for your bundle you can add an initialize function or even an array of functions.
 
-    modules.exports = {
-      name: 'Hoozit',
-      version: '0.0.1',
-      description: 'This is a very cool hoozit',
-      nav: { title: 'Hoozit', url: 'http://hoozit.com' },
-      initialize: function(app, done) {
-        app.hoozit = 'I am a hoozit';
-        done();
-      }
-    };
+      modules.exports = {
+        name: 'Hoozit',
+        version: '0.0.1',
+        description: 'This is a very cool hoozit',
+        nav: { title: 'Hoozit', url: 'http://hoozit.com' },
+        initialize: function(app, done) {
+          app.hoozit = 'I am a hoozit';
+          done();
+        }
+      };
 
-    modules.exports = {
-      name: 'Hoozit',
-      version: '0.0.1',
-      description: 'This is a very cool hoozit',
-      nav: { title: 'Hoozit', url: 'http://hoozit.com' },
-      initialize: [function(app, done) {
-        // Do something first. All first level initialization will be executed.
-        done();
-      }, function(app, done) {
-        // Then all second level initialization will be executed. This is handy for circular references.
-        app.hoozit = 'I am a hoozit';
-        done();
-      }]
-    };
+      modules.exports = {
+        name: 'Hoozit',
+        version: '0.0.1',
+        description: 'This is a very cool hoozit',
+        nav: { title: 'Hoozit', url: 'http://hoozit.com' },
+        initialize: [function(app, done) {
+          // Do something first. All first level initialization will be executed.
+          done();
+        }, function(app, done) {
+          // Then all second level initialization will be executed. This is handy for circular references.
+          app.hoozit = 'I am a hoozit';
+          done();
+        }]
+      };
 
 For more information take a look at the tests.
 
