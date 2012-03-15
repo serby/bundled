@@ -1,6 +1,6 @@
-# Bundled - A standalone bundle manage
+# Bundled - A standalone bundle manager
 
-Bundles allows you to add a standalone extension system any application.
+Bundled allows you to add a standalone extension system any application.
 
 [![build status](https://secure.travis-ci.org/serby/bundled.png)](http://travis-ci.org/serby/bundled)
 
@@ -17,8 +17,8 @@ Bundles allows you to add a standalone extension system any application.
     modules.exports = {
       name: 'Hoozit',
       version: '0.0.1',
-      description: 'This is a very cool hoozit',
-      nav: { title: 'Hoozit', url: 'http://hoozit.com' }
+      description: 'This is a very cool hoozit', // Optional
+      nav: { title: 'Hoozit', url: 'http://hoozit.com' } // Custom properties can be added
     };
 
 * Then add to your application like so:
@@ -43,6 +43,21 @@ Bundles allows you to add a standalone extension system any application.
         app.hoozit = 'I am a hoozit';
         done();
       }
+    };
+
+    modules.exports = {
+      name: 'Hoozit',
+      version: '0.0.1',
+      description: 'This is a very cool hoozit',
+      nav: { title: 'Hoozit', url: 'http://hoozit.com' },
+      initialize: [function(app, done) {
+        // Do something first. All first level initialization will be executed.
+        done();
+      }, function(app, done) {
+        // Then all second level initialization will be executed. This is handy for circular references.
+        app.hoozit = 'I am a hoozit';
+        done();
+      }]
     };
 
 For more information take a look at the tests.
