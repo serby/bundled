@@ -14,23 +14,27 @@ Bundled allows you to add a standalone extension system any application.
 * Create a bundle folder
 * Create bundle.js which must have the following:
 
-    modules.exports = {
-      name: 'Hoozit',
-      version: '0.0.1',
-      description: 'This is a very cool hoozit', // Optional
-      nav: { title: 'Hoozit', url: 'http://hoozit.com' } // Custom properties can be added
-    };
+bundle.js
+
+      modules.exports = {
+        name: 'Hoozit',
+        version: '0.0.1',
+        description: 'This is a very cool hoozit', // Optional
+        nav: { title: 'Hoozit', url: 'http://hoozit.com' } // Custom properties can be added
+      };
 
 * Then add to your application like so:
 
-    var bundled = require('bundled')(app);
-    bundled.addPath('bundle/hoozit');
+app.js
+      var bundled = require('bundled')(app);
+      bundled.addPath('bundle/hoozit');
 
 * You can add as unlimited properties to a bundle and retrieve them later using:
 
-    var bundled = require('bundled')(app);
-    bundled.addPath('bundle/hoozit');
-    bundled.get('nav'); // Returns an array of all the bundles value for **nav**
+app.js
+      var bundled = require('bundled')(app);
+      bundled.addPath('bundle/hoozit');
+      bundled.get('nav'); // Returns an array of all the bundles value for **nav**
 
 * If you need to initialize code for your bundle you can add an initialize function or even an array of functions.
 
