@@ -73,7 +73,9 @@ Multiple initialize function example:
 For more information take a look at the tests.
 
 ## Credits
+
 [Paul Serby](https://github.com/serby/) follow me on [twitter](http://twitter.com/PabloSerbo)
 
 ## Licence
+
 Licenced under the [New BSD License](http://opensource.org/licenses/bsd-license.php)
