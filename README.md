@@ -26,12 +26,14 @@ bundle.js
 * Then add to your application like so:
 
 app.js
+
       var bundled = require('bundled')(app);
       bundled.addPath('bundle/hoozit');
 
 * You can add as unlimited properties to a bundle and retrieve them later using:
 
 app.js
+
       var bundled = require('bundled')(app);
       bundled.addPath('bundle/hoozit');
       bundled.get('nav'); // Returns an array of all the bundles value for **nav**
