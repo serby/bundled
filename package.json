@@ -9,7 +9,7 @@
 	},
 	"main": "lib/bundled.js",
 	"scripts": {
-		"test": "mocha -r should -R List "
+		"test": "./node_modules/.bin/mocha -r should"
 	},
 	"engines": {
 		"node": ">0.4.0"
