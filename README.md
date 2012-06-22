@@ -16,7 +16,7 @@ Bundled allows you to add a standalone extension system any application.
 
 bundle.js
 
-      modules.exports = {
+      module.exports = {
         name: 'Hoozit',
         version: '0.0.1',
         description: 'This is a very cool hoozit', // Optional
@@ -42,7 +42,7 @@ app.js
 
 Single initialize function example:
 
-      modules.exports = {
+      module.exports = {
         name: 'Hoozit',
         version: '0.0.1',
         description: 'This is a very cool hoozit',
@@ -55,7 +55,7 @@ Single initialize function example:
 
 Multiple initialize function example:
 
-      modules.exports = {
+      module.exports = {
         name: 'Hoozit',
         version: '0.0.1',
         description: 'This is a very cool hoozit',
