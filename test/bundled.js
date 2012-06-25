@@ -96,14 +96,27 @@ describe('bundled', function() {
     });
 
     it('should call every initialize in the correct order on bundles that have many', function(done) {
-        var app = { order: [] };
-        validThree(app).initialize(function() {
-          app.woozit.length.should.equal(2);
-          app.order.should.eql([ 'hoozit', 'woozit 1', 'doodad 1', 'woozit 2', 'doodad 2' ]);
-          done();
-        });
+      var app = { order: [] };
+      validThree(app).initialize(function() {
+        app.woozit.length.should.equal(2);
+        app.order.should.eql([ 'hoozit', 'woozit 1', 'doodad 1', 'woozit 2', 'doodad 2' ]);
+        done();
+      });
     });
+
+    it('should allow initialize functions without a callback', function(done) {
+
+      var app = { order: [] };
+      validThree(app).initialize();
+
+      process.nextTick(function() {
+        done();
+      });
+
+    });
+
   });
+
   describe('#get()', function() {
     it('should get an array of all the properties from the bundles', function() {
       var app = { order: [] };
