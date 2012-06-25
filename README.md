@@ -30,8 +30,17 @@ module.exports = {
 app.js
 
 ```js
+
 var bundled = require('bundled')(app);
 bundled.addPath('bundle/hoozit');
+bundled.initialize(function(error) {
+  if (error) {
+    // Something went wrong
+    return
+  }
+  // All bundles initialized successfully
+});
+
 ```
 
 * You can add as unlimited properties to a bundle and retrieve them later using:
