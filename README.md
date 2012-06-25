@@ -29,16 +29,20 @@ module.exports = {
 
 app.js
 
-      var bundled = require('bundled')(app);
-      bundled.addPath('bundle/hoozit');
+```js
+var bundled = require('bundled')(app);
+bundled.addPath('bundle/hoozit');
+```
 
 * You can add as unlimited properties to a bundle and retrieve them later using:
 
 app.js
 
-      var bundled = require('bundled')(app);
-      bundled.addPath('bundle/hoozit');
-      bundled.get('nav'); // Returns an array of all the bundles value for **nav**
+```js
+var bundled = require('bundled')(app);
+bundled.addPath('bundle/hoozit');
+bundled.get('nav'); // Returns an array of all the bundles value for **nav**
+```
 
 * If you need to initialize code for your bundle you can add an initialize function or even an array of functions.
 
