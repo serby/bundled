@@ -16,12 +16,14 @@ Bundled allows you to add a standalone extension system any application.
 
 bundle.js
 
-      module.exports = {
-        name: 'Hoozit',
-        version: '0.0.1',
-        description: 'This is a very cool hoozit', // Optional
-        nav: { title: 'Hoozit', url: 'http://hoozit.com' } // Custom properties can be added
-      };
+```js
+module.exports = {
+  name: 'Hoozit',
+  version: '0.0.1',
+  description: 'This is a very cool hoozit', // Optional
+  nav: { title: 'Hoozit', url: 'http://hoozit.com' } // Custom properties can be added
+};
+```
 
 * Then add to your application like so:
 
@@ -42,39 +44,45 @@ app.js
 
 Single initialize function example:
 
-      module.exports = {
-        name: 'Hoozit',
-        version: '0.0.1',
-        description: 'This is a very cool hoozit',
-        nav: { title: 'Hoozit', url: 'http://hoozit.com' },
-        initialize: function(app, done) {
-          app.hoozit = 'I am a hoozit';
-          done();
-        }
-      };
+```js
+
+module.exports = {
+  name: 'Hoozit',
+  version: '0.0.1',
+  description: 'This is a very cool hoozit',
+  nav: { title: 'Hoozit', url: 'http://hoozit.com' },
+  initialize: function(app, done) {
+    app.hoozit = 'I am a hoozit';
+    done();
+  }
+};
+
+```
 
 Multiple initialize function example:
 
-      module.exports = {
-        name: 'Hoozit',
-        version: '0.0.1',
-        description: 'This is a very cool hoozit',
-        nav: { title: 'Hoozit', url: 'http://hoozit.com' },
-        initialize: [function(app, done) {
-          // Do something first. All first level initialization will be executed.
-          done();
-        }, function(app, done) {
-          // Then all second level initialization will be executed. This is handy for circular references.
-          app.hoozit = 'I am a hoozit';
-          done();
-        }]
-      };
+```js
+module.exports = {
+  name: 'Hoozit',
+  version: '0.0.1',
+  description: 'This is a very cool hoozit',
+  nav: { title: 'Hoozit', url: 'http://hoozit.com' },
+  initialize: [function(app, done) {
+    // Do something first. All first level initialization will be executed.
+    done();
+  }, function(app, done) {
+    // Then all second level initialization will be executed. This is handy for circular references.
+    app.hoozit = 'I am a hoozit';
+    done();
+  }]
+};
+```
 
 For more information take a look at the tests.
 
 ## Credits
 
-[Paul Serby](https://github.com/serby/) follow me on [twitter](http://twitter.com/PabloSerbo)
+[Paul Serby](https://github.com/serby/) follow me on twitter [@serby](http://twitter.com/serby)
 
 ## Licence
 
