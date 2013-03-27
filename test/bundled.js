@@ -104,14 +104,14 @@ describe('bundled', function() {
     })
 
 
-    it('should allow initialize functions without a callback', function(done) {
+    it('should allow initialize functions without a callback', function() {
 
-      var app = { order: [] }
-      validThree(app).initialize()
+      var app = { }
+      , notAsync = require('..')(app, { logger: logger, strictDependencyChecking: true })
+        .addPath(__dirname + '/fixtures/not-async')
 
-      process.nextTick(function() {
-        done()
-      })
+      notAsync.initialize()
+      app.notAsync.should.equal(1)
 
     })
 

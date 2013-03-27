@@ -232,12 +232,24 @@ module.exports = function(app, options) {
       }
     })
 
+    function getParamNames(func) {
+      var funStr = func.toString();
+      return funStr.slice(funStr.indexOf('(')+1, funStr.indexOf(')')).match(/([^\s,]+)/g);
+    }
+
+
     // Loop through and execute all the initialize functions in order
     async.forEach(Object.keys(initializeFns), function(level, levelDone) {
 
       async.forEach(initializeFns[level], function(fn, fnDone) {
         options.logger.info('Initializing Bundle: ' + fn.bundleName)
-        fn(app, fnDone)
+        // If there is only one param then assume it is not async
+        if (getParamNames(initializeFns[level]).length === 1) {
+          fn(app)
+          fnDone()
+        } else {
+          fn(app, fnDone)
+        }
       }, function(error) {
         levelDone(error)
       })
