@@ -1,4 +1,4 @@
-var _ = require('underscore')
+var _ = require('lodash')
   , async = require('async')
   , semver = require('semver')
   , path = require('path')
@@ -10,21 +10,14 @@ existsSync = fs.existsSync || path.existsSync
 module.exports = function(app, options) {
 
   var self = {}
-    , bundles = {};
+    , bundles = {}
 
   options = _.extend({
     bundleConfig: 'bundle.js',
     logger: console,
     strictDependencyChecking: false
-  }, options);
+  }, options)
 
-  function executeFunction(bundle, functionName, done) {
-    if ((bundle.hasOwnProperty(functionName)) && (typeof bundle[functionName] === 'function')) {
-      bundle[functionName](app, done);
-    } else {
-      done();
-    }
-  }
 
   /**
    * Check a single dependencies by name and version
@@ -35,9 +28,9 @@ module.exports = function(app, options) {
   function checkDependancy(name, version) {
 
     if (bundles.hasOwnProperty(name)) {
-      return semver.satisfies(bundles[name].version, version);
+      return semver.satisfies(bundles[name].version, version)
     }
-    return false;
+    return false
   }
 
   /**
@@ -47,17 +40,17 @@ module.exports = function(app, options) {
    * @return {Boolean} True if all the dependencies are met
    */
   function checkDependancies(bundle) {
-    var dependenciesFound = true;
+    var dependenciesFound = true
     if (bundle.hasOwnProperty('dependencies') && typeof bundle.dependencies === 'object') {
       Object.keys(bundle.dependencies).forEach(function(name) {
         if (!checkDependancy(name, bundle.dependencies[name])) {
           options.logger.warn('Unable to find dependencies for \'' + bundle.name +
-            '\' that matches \'' + name + '@' + bundle.dependencies[name]);
-          dependenciesFound = false;
+            '\' that matches \'' + name + '@' + bundle.dependencies[name])
+          dependenciesFound = false
         }
-      });
+      })
     }
-    return dependenciesFound;
+    return dependenciesFound
   }
 
   /**
@@ -73,19 +66,19 @@ module.exports = function(app, options) {
     if (bundles[bundle.name]) {
       throw new Error('Bundle has already been added. ' +
         'It is likely that you have two bundles with the same name: ' +
-        bundle.name + (bundle.description ? ' "' + bundle.description + '"' : ''));
+        bundle.name + (bundle.description ? ' "' + bundle.description + '"' : ''))
     } else if (!bundle.name){
-      throw new Error('Bundle is missing a name');
+      throw new Error('Bundle is missing a name')
     } else if (!bundle.version){
-      throw new Error('Bundle \'' + bundle.name + '\' is missing a version');
+      throw new Error('Bundle \'' + bundle.name + '\' is missing a version')
     }
     if (checkDependancies(bundle) || !options.strictDependencyChecking) {
-      bundles[bundle.name] = bundle;
+      bundles[bundle.name] = bundle
     } else {
-      throw new Error('Dependencies for \'' + bundle.name + '\' were not met');
+      throw new Error('Dependencies for \'' + bundle.name + '\' were not met')
     }
 
-    return self;
+    return self
   }
 
   /**
@@ -98,20 +91,20 @@ module.exports = function(app, options) {
    */
   function addPath(bundlePath) {
     var configPath = bundlePath + '/' + options.bundleConfig
-      , bundle;
+      , bundle
 
     if (!existsSync(bundlePath)) {
-      throw new Error('Unable to find bundle: ' + bundlePath);
+      throw new Error('Unable to find bundle: ' + bundlePath)
     }
     if (!existsSync(configPath)) {
-      throw new Error('Unable to find bundle config: ' + configPath);
+      throw new Error('Unable to find bundle config: ' + configPath)
     }
 
-    bundle = require(configPath);
-    bundle.path = bundlePath;
-    add(bundle);
+    bundle = require(configPath)
+    bundle.path = bundlePath
+    add(bundle)
 
-    return self;
+    return self
   }
 
   /**
@@ -123,10 +116,10 @@ module.exports = function(app, options) {
    */
   function addBundles(bundlePath, bundles) {
     bundles.forEach(function(bundle) {
-      options.logger.info('Adding bundle: ' + bundle);
-      addPath(bundlePath + '/' + bundle);
-    });
-    return self;
+      options.logger.info('Adding bundle: ' + bundle)
+      addPath(bundlePath + '/' + bundle)
+    })
+    return self
   }
 
   /**
@@ -141,63 +134,65 @@ module.exports = function(app, options) {
    * @return {Array} Return bundled for chaining
    */
   function get(propertyName, compare) {
-    var returned = [];
+    var returned = []
     if (compare === undefined) {
-      compare = function(value, bundle) { return value !== undefined; };
+      compare = function(value) {
+        return value !== undefined
+      }
     }
     Object.keys(bundles).forEach(function(key) {
-      var bundle = bundles[key];
+      var bundle = bundles[key]
       if (bundle[propertyName] === undefined) {
-        return false;
+        return false
       }
       if (compare(bundle[propertyName], bundle)) {
         if (Array.isArray(bundle[propertyName])) {
-          returned = returned.concat(bundle[propertyName]);
+          returned = returned.concat(bundle[propertyName])
         } else {
-          returned.push(bundle[propertyName]);
+          returned.push(bundle[propertyName])
         }
       }
-    });
-    return returned;
+    })
+    return returned
   }
 
   /**
    * Iterates through all bundles and perform the given function on properties
    *
    * @param {String} propertyName The name of the property to iterator over
-   * @param {Function} fn Function to call for each property. fn(bundle, item, done);
+   * @param {Function} fn Function to call for each property. fn(bundle, item, done)
    * @param {Function} done To be called once all the bundle properties have been processed.
    * If omit done the properties will be processed synchronously
    * @return {Array} Return bundled for chaining
    */
   function forEach(propertyName, fn, done) {
     async.forEach(Object.keys(bundles), function(key, bundleDone) {
-      var bundle = bundles[key];
+      var bundle = bundles[key]
       if (bundle[propertyName] === undefined) {
-        options.logger.info('Not found ' + propertyName + ' in bundle ' + bundle.name);
-        return false;
+        options.logger.info('Not found ' + propertyName + ' in bundle ' + bundle.name)
+        return false
       }
       if (!Array.isArray(bundle[propertyName])) {
-        bundle[propertyName] = [bundle[propertyName]];
+        bundle[propertyName] = [bundle[propertyName]]
       }
       if (typeof done === 'function') {
         async.forEach(bundle[propertyName], function(item, fnDone) {
-          fn(item, bundle, fnDone);
+          fn(item, bundle, fnDone)
         }, function(error) {
-          bundleDone(error);
-        });
+          bundleDone(error)
+        })
       } else {
         bundle[propertyName].forEach(function(item) {
-          fn(item, bundle);
-          bundleDone();
-        });
+          fn(item, bundle)
+          bundleDone()
+        })
       }
     }, function(error) {
       if (typeof done === 'function') {
-        done(error);
+        done(error)
       }
-    });
-    return self;
+    })
+    return self
   }
 
   /**
@@ -209,56 +204,56 @@ module.exports = function(app, options) {
    */
   function initialize(done) {
 
-    var initializeFns = {};
+    var initializeFns = {}
 
     // Build the initialization stack
     Object.keys(bundles).forEach(function(key) {
 
-      var bundleInitializeFn = bundles[key].initialize;
+      var bundleInitializeFn = bundles[key].initialize
 
       if (bundleInitializeFn !== undefined) {
         if (initializeFns[0] === undefined) {
-          initializeFns[0] = [];
+          initializeFns[0] = []
         }
         if (typeof bundleInitializeFn === 'function') {
-          bundleInitializeFn.bundleName = key;
-          initializeFns[0].push(bundleInitializeFn);
+          bundleInitializeFn.bundleName = key
+          initializeFns[0].push(bundleInitializeFn)
         } else if (Array.isArray(bundleInitializeFn)) {
-          var count = 0;
+          var count = 0
           bundleInitializeFn.forEach(function(fn) {
-            fn.bundleName = key;
+            fn.bundleName = key
             if (initializeFns[count] === undefined) {
-              initializeFns[count] = [];
+              initializeFns[count] = []
             }
-            initializeFns[count].push(fn);
-            count += 1;
-          });
+            initializeFns[count].push(fn)
+            count += 1
+          })
         }
       }
-    });
+    })
 
     // Loop through and execute all the initialize functions in order
     async.forEach(Object.keys(initializeFns), function(level, levelDone) {
 
       async.forEach(initializeFns[level], function(fn, fnDone) {
-        options.logger.info('Initializing Bundle: ' + fn.bundleName);
-        fn(app, fnDone);
+        options.logger.info('Initializing Bundle: ' + fn.bundleName)
+        fn(app, fnDone)
       }, function(error) {
-        levelDone(error);
-      });
+        levelDone(error)
+      })
 
     }, function(error) {
       if (typeof done === 'function') {
-        done(error);
+        done(error)
       }
-    });
+    })
   }
 
-  self.addPath = addPath;
-  self.addBundles = addBundles;
-  self.initialize = initialize;
-  self.get = get;
-  self.forEach = forEach;
+  self.addPath = addPath
+  self.addBundles = addBundles
+  self.initialize = initialize
+  self.get = get
+  self.forEach = forEach
 
-  return self;
-};
+  return self
+}

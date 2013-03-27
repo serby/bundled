@@ -1,13 +1,13 @@
 {
 	"author": "Paul Serby <paul@serby.net>",
 	"name": "bundled",
-	"description": "A standalone bundle manage which can add an extendable plugin system to any application",
-	"version": "0.0.2",
+	"description": "A standalone bundle manage which can add an extendible plugin system to any application",
+	"version": "0.0.3",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:serby/bundled"
 	},
-	"main": "lib/bundled.js",
+	"main": "./bundled.js",
 	"scripts": {
 		"test": "./node_modules/.bin/mocha -r should"
 	},
@@ -16,8 +16,8 @@
 	},
 	"dependencies": {
 		"async": "~0.1",
-		"semver": "~1.0",
-		"underscore": "~1.3"
+		"semver": "~1",
+		"lodash": "~1"
 	},
 	"devDependencies": {
 		"mocha": "*",
