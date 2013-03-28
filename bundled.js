@@ -244,7 +244,7 @@ module.exports = function(app, options) {
       async.forEachSeries(initializeFns[level], function(fn, fnDone) {
         options.logger.info('Initializing Bundle: ' + fn.bundleName)
         // If there is only one param then assume it is not async
-        if (getParamNames(initializeFns[level]).length === 1) {
+        if (getParamNames(fn).length === 1) {
           fn(app)
           fnDone()
         } else {

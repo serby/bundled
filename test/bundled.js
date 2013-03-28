@@ -103,18 +103,19 @@ describe('bundled', function() {
       })
     })
 
+    it('should allow initialize functions without a callback', function(done) {
 
-    it('should allow initialize functions without a callback', function() {
-
-      var app = { }
+      var app = { order: [] }
       , notAsync = require('..')(app, { logger: logger, strictDependencyChecking: true })
         .addPath(__dirname + '/fixtures/not-async')
+        .addPath(__dirname + '/fixtures/doodad')
 
-      notAsync.initialize()
-      app.notAsync.should.equal(1)
+      notAsync.initialize(function () {
+        app.order.should.eql([ 'not async', 'doodad 1', 'doodad 2'])
+        done()
+      })
 
     })
-
   })
 
   describe('#get()', function() {
