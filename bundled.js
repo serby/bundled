@@ -239,9 +239,9 @@ module.exports = function(app, options) {
 
 
     // Loop through and execute all the initialize functions in order
-    async.forEach(Object.keys(initializeFns), function(level, levelDone) {
+    async.forEachSeries(Object.keys(initializeFns), function(level, levelDone) {
 
-      async.forEach(initializeFns[level], function(fn, fnDone) {
+      async.forEachSeries(initializeFns[level], function(fn, fnDone) {
         options.logger.info('Initializing Bundle: ' + fn.bundleName)
         // If there is only one param then assume it is not async
         if (getParamNames(initializeFns[level]).length === 1) {

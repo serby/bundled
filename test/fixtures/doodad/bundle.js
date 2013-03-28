@@ -5,12 +5,16 @@ module.exports = {
   nav: 'doodad',
   initialize: [
     function(app, done) {
-      app.order.push('doodad 1');
-      done();
+      process.nextTick(function () {
+        app.order.push('doodad 1')
+        done()
+      })
     },
     function(app, done) {
-      app.order.push('doodad 2');
-      done();
+      setTimeout(function () {
+        app.order.push('doodad 2')
+        done()
+      }, 50)
     }
   ]
 };
