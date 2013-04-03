@@ -109,9 +109,11 @@ describe('bundled', function() {
       , notAsync = require('..')(app, { logger: logger, strictDependencyChecking: true })
         .addPath(__dirname + '/fixtures/not-async')
         .addPath(__dirname + '/fixtures/doodad')
+        .addPath(__dirname + '/fixtures/hoozit')
+        .addPath(__dirname + '/fixtures/woozit')
 
       notAsync.initialize(function () {
-        app.order.should.eql([ 'not async', 'doodad 1', 'doodad 2'])
+        app.order.should.eql(['not async', 'doodad 1', 'hoozit', 'woozit 1', 'doodad 2', 'woozit 2'])
         done()
       })
 
