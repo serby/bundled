@@ -2,7 +2,7 @@
 	"author": "Paul Serby <paul@serby.net>",
 	"name": "bundled",
 	"description": "A standalone bundle manager which can add an plugin system to any application",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"repository": {
 		"type": "git",
 		"url": "git@github.com:serby/bundled"
@@ -15,8 +15,8 @@
 		"node": ">0.4.0"
 	},
 	"dependencies": {
-		"async": "~0.1",
-		"semver": "~1",
+		"async": "~0.2",
+		"semver": "*",
 		"lodash": "~1"
 	},
 	"devDependencies": {

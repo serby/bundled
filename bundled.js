@@ -184,8 +184,8 @@ module.exports = function(app, options) {
       } else {
         bundle[propertyName].forEach(function(item) {
           fn(item, bundle)
-          bundleDone()
         })
+        bundleDone()
       }
     }, function(error) {
       if (typeof done === 'function') {
