@@ -3,6 +3,9 @@
   "name": "bundled",
   "description": "A standalone bundle manager which can add an plugin system to any application",
   "version": "0.0.8",
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:serby/bundled"
