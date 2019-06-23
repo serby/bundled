@@ -2,7 +2,7 @@
 
 Bundled allows you to add a standalone extension system any application.
 
-[![build status](https://secure.travis-ci.org/serby/bundled.png)](http://travis-ci.org/serby/bundled)
+[![build status](https://secure.travis-ci.org/serby/bundled.png)](http://travis-ci.org/serby/bundled) [![Greenkeeper badge](https://badges.greenkeeper.io/serby/bundled.svg)](https://greenkeeper.io/)
 
 ## Installation
 
