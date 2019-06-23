@@ -18,9 +18,9 @@
     "node": ">0.4.0"
   },
   "dependencies": {
-    "async": "~0.2.9",
-    "semver": "~2.1.0",
-    "lodash": "~2.0.0"
+    "async": "~3.1.0",
+    "semver": "~6.1.1",
+    "lodash": "~4.17.11"
   },
   "devDependencies": {
     "mocha": "*",
